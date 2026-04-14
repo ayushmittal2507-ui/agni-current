@@ -1,0 +1,1597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nidhi Singhal — Consultant Dietitian & Diabetes Educator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sage: #8FAF8F;
+    --sage-light: #C5D8C5;
+    --sage-pale: #EBF2EB;
+    --cream: #FAF8F4;
+    --warm-white: #FDFCFA;
+    --soft-blue: #A8C4D4;
+    --dusty-rose: #D4A8A8;
+    --text-dark: #2C2C2C;
+    --text-mid: #5A5A5A;
+    --text-light: #8A8A8A;
+    --glass-bg: rgba(255,255,255,0.55);
+    --glass-border: rgba(255,255,255,0.75);
+    --glass-shadow: 0 8px 40px rgba(143,175,143,0.12);
+    --radius-lg: 24px;
+    --radius-xl: 36px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; font-size: 16px; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /* ─── NOISE TEXTURE OVERLAY ─── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 0; opacity: 0.4;
+  }
+
+  /* ─── AMBIENT BLOBS ─── */
+  .blob {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+    z-index: 0;
+    animation: drift 20s ease-in-out infinite alternate;
+  }
+  .blob-1 { width: 500px; height: 500px; background: rgba(143,175,143,0.18); top: -100px; right: -100px; }
+  .blob-2 { width: 400px; height: 400px; background: rgba(168,196,212,0.15); bottom: 20%; left: -150px; animation-delay: -7s; }
+  .blob-3 { width: 300px; height: 300px; background: rgba(212,168,168,0.1); top: 50%; right: 10%; animation-delay: -14s; }
+
+  @keyframes drift {
+    0% { transform: translate(0,0) scale(1); }
+    100% { transform: translate(30px,40px) scale(1.05); }
+  }
+
+  /* ─── GLASS UTILITY ─── */
+  .glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px) saturate(1.4);
+    -webkit-backdrop-filter: blur(20px) saturate(1.4);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+  }
+
+  /* ─── NAVIGATION ─── */
+  nav {
+    position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+    width: calc(100% - 40px); max-width: 1100px;
+    z-index: 1000;
+    border-radius: 100px;
+    padding: 14px 32px;
+    display: flex; align-items: center; justify-content: space-between;
+    transition: all 0.4s ease;
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    letter-spacing: 0.01em;
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--sage); }
+
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+
+  .nav-links a {
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--text-mid);
+    text-decoration: none;
+    letter-spacing: 0.03em;
+    transition: color 0.25s;
+    position: relative;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute; bottom: -4px; left: 0; right: 0;
+    height: 1px; background: var(--sage);
+    transform: scaleX(0); transform-origin: center;
+    transition: transform 0.3s ease;
+  }
+
+  .nav-links a:hover { color: var(--sage); }
+  .nav-links a:hover::after { transform: scaleX(1); }
+
+  .nav-cta {
+    background: var(--sage);
+    color: white !important;
+    padding: 8px 22px;
+    border-radius: 100px;
+    font-size: 0.82rem !important;
+    font-weight: 500 !important;
+    transition: background 0.25s, transform 0.2s !important;
+  }
+  .nav-cta::after { display: none !important; }
+  .nav-cta:hover { background: #7a9e7a !important; transform: translateY(-1px) !important; }
+
+  .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+  .nav-hamburger span { display: block; width: 22px; height: 1.5px; background: var(--text-dark); border-radius: 2px; transition: all 0.3s; }
+
+  /* ─── HERO ─── */
+  #hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    position: relative;
+    padding: 120px 20px 80px;
+    overflow: hidden;
+  }
+
+  .hero-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    position: relative; z-index: 1;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 24px;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 32px; height: 1px;
+    background: var(--sage);
+  }
+
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.8rem, 5vw, 4.2rem);
+    font-weight: 400;
+    line-height: 1.1;
+    color: var(--text-dark);
+    margin-bottom: 20px;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--sage);
+  }
+
+  .hero-body {
+    font-size: 1.05rem;
+    color: var(--text-mid);
+    line-height: 1.75;
+    max-width: 440px;
+    margin-bottom: 40px;
+    font-weight: 300;
+  }
+
+  .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+
+  .btn-primary {
+    background: var(--text-dark);
+    color: white;
+    padding: 16px 36px;
+    border-radius: 100px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    border: none; cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex; align-items: center; gap: 8px;
+    letter-spacing: 0.02em;
+  }
+
+  .btn-primary:hover {
+    background: var(--sage);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(143,175,143,0.35);
+  }
+
+  .btn-whatsapp {
+    background: transparent;
+    color: var(--text-dark);
+    padding: 16px 36px;
+    border-radius: 100px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    border: 1.5px solid rgba(44,44,44,0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+
+  .btn-whatsapp:hover {
+    border-color: #25D366;
+    color: #25D366;
+    transform: translateY(-2px);
+  }
+
+  /* ─── HERO STATS ─── */
+  .hero-stats {
+    display: flex; gap: 32px;
+    margin-top: 48px;
+    padding-top: 40px;
+    border-top: 1px solid rgba(143,175,143,0.25);
+  }
+
+  .stat-item {}
+
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem;
+    font-weight: 500;
+    color: var(--text-dark);
+    line-height: 1;
+  }
+
+  .stat-num span { color: var(--sage); }
+
+  .stat-label {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  /* ─── HERO IMAGE CARD ─── */
+  .hero-image-wrap {
+    position: relative;
+    display: flex; justify-content: center;
+  }
+
+  .hero-img-card {
+    width: 100%;
+    max-width: 460px;
+    aspect-ratio: 4/5;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .hero-img-card img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+
+  .hero-img-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, transparent 50%, rgba(143,175,143,0.15));
+  }
+
+  .hero-float-card {
+    position: absolute;
+    bottom: -24px;
+    left: -32px;
+    padding: 18px 24px;
+    border-radius: 20px;
+    max-width: 220px;
+    animation: floatUp 3s ease-in-out infinite alternate;
+  }
+
+  @keyframes floatUp {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-8px); }
+  }
+
+  .float-card-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--sage);
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+
+  .float-card-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    color: var(--text-dark);
+    font-weight: 500;
+  }
+
+  .hero-float-card-2 {
+    position: absolute;
+    top: 40px;
+    right: -28px;
+    padding: 16px 20px;
+    border-radius: 18px;
+    animation: floatUp 3.5s ease-in-out infinite alternate;
+    animation-delay: -1.5s;
+  }
+
+  .float-badge {
+    display: flex; align-items: center; gap: 10px;
+  }
+
+  .float-badge-icon {
+    width: 36px; height: 36px;
+    border-radius: 12px;
+    background: var(--sage-pale);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+  }
+
+  .float-badge-text { font-size: 0.82rem; color: var(--text-dark); font-weight: 500; }
+  .float-badge-sub { font-size: 0.72rem; color: var(--text-light); }
+
+  /* ─── SECTION COMMONS ─── */
+  section { position: relative; z-index: 1; }
+
+  .section-wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 100px 20px;
+  }
+
+  .section-label {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 16px;
+  }
+
+  .section-label::before {
+    content: '';
+    width: 24px; height: 1px;
+    background: var(--sage);
+  }
+
+  h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 400;
+    line-height: 1.15;
+    color: var(--text-dark);
+    margin-bottom: 16px;
+  }
+
+  h2 em { font-style: italic; color: var(--sage); }
+
+  .section-subtitle {
+    font-size: 1rem;
+    color: var(--text-mid);
+    max-width: 520px;
+    line-height: 1.7;
+    font-weight: 300;
+    margin-bottom: 56px;
+  }
+
+  /* ─── ABOUT ─── */
+  #about .section-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .about-img-wrap { position: relative; }
+
+  .about-img {
+    width: 100%;
+    aspect-ratio: 3/4;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+  }
+
+  .about-img img { width: 100%; height: 100%; object-fit: cover; }
+
+  .about-accent {
+    position: absolute;
+    bottom: -20px; right: -20px;
+    width: 140px; height: 140px;
+    border-radius: 50%;
+    background: var(--sage-pale);
+    z-index: -1;
+  }
+
+  .about-content {}
+
+  .about-text {
+    font-size: 1rem;
+    color: var(--text-mid);
+    line-height: 1.85;
+    margin-bottom: 20px;
+    font-weight: 300;
+  }
+
+  .credential-list {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 12px;
+    margin-top: 32px;
+  }
+
+  .credential-list li {
+    display: flex; align-items: center; gap: 12px;
+    font-size: 0.88rem;
+    color: var(--text-mid);
+    font-weight: 400;
+  }
+
+  .credential-list li::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--sage);
+    flex-shrink: 0;
+  }
+
+  /* ─── SERVICES ─── */
+  #services { background: var(--warm-white); }
+
+  .services-header { text-align: center; }
+  .services-header .section-label { justify-content: center; }
+  .services-header .section-subtitle { margin: 0 auto 56px; }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .service-card {
+    padding: 36px 32px;
+    border-radius: var(--radius-lg);
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    background: var(--sage-pale);
+    opacity: 0.5;
+    transition: transform 0.5s ease;
+  }
+
+  .service-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(143,175,143,0.2); }
+  .service-card:hover::before { transform: scale(1.3); }
+
+  .service-icon {
+    width: 52px; height: 52px;
+    border-radius: 16px;
+    background: var(--sage-pale);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 24px;
+    font-size: 1.4rem;
+    position: relative; z-index: 1;
+  }
+
+  .service-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.45rem;
+    font-weight: 500;
+    color: var(--text-dark);
+    margin-bottom: 12px;
+    position: relative; z-index: 1;
+  }
+
+  .service-card p {
+    font-size: 0.88rem;
+    color: var(--text-mid);
+    line-height: 1.75;
+    font-weight: 300;
+    margin-bottom: 24px;
+    position: relative; z-index: 1;
+  }
+
+  .service-features {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 8px;
+    position: relative; z-index: 1;
+  }
+
+  .service-features li {
+    font-size: 0.82rem;
+    color: var(--text-mid);
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  .service-features li::before {
+    content: '✓';
+    color: var(--sage);
+    font-weight: 600;
+    font-size: 0.75rem;
+  }
+
+  /* ─── HOW IT WORKS ─── */
+  .process-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-top: 56px;
+  }
+
+  .process-step {
+    text-align: center;
+    padding: 32px 20px;
+    border-radius: var(--radius-lg);
+    position: relative;
+  }
+
+  .process-step::after {
+    content: '→';
+    position: absolute;
+    top: 48px;
+    right: -14px;
+    color: var(--sage-light);
+    font-size: 1.2rem;
+    z-index: 2;
+  }
+
+  .process-step:last-child::after { display: none; }
+
+  .step-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: var(--sage-light);
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+
+  .process-step h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+  }
+
+  .process-step p {
+    font-size: 0.82rem;
+    color: var(--text-light);
+    line-height: 1.6;
+  }
+
+  /* ─── TESTIMONIALS ─── */
+  #testimonials { background: var(--sage-pale); }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .testimonial-card {
+    padding: 32px;
+    border-radius: var(--radius-lg);
+  }
+
+  .quote-mark {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    color: var(--sage);
+    line-height: 1;
+    margin-bottom: 12px;
+    font-weight: 300;
+  }
+
+  .testimonial-text {
+    font-size: 0.92rem;
+    color: var(--text-mid);
+    line-height: 1.8;
+    font-style: italic;
+    margin-bottom: 24px;
+    font-weight: 300;
+  }
+
+  .testimonial-author {
+    display: flex; align-items: center; gap: 12px;
+  }
+
+  .author-avatar {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: var(--sage-light);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+    overflow: hidden;
+  }
+
+  .author-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+  .author-name {
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--text-dark);
+  }
+
+  .author-tag {
+    font-size: 0.75rem;
+    color: var(--text-light);
+  }
+
+  /* ─── CONTACT FORM ─── */
+  #contact .section-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .contact-info h2 { margin-bottom: 20px; }
+
+  .contact-detail {
+    display: flex; align-items: flex-start; gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .contact-detail-icon {
+    width: 44px; height: 44px;
+    border-radius: 14px;
+    background: var(--sage-pale);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  .contact-detail-text { font-size: 0.88rem; color: var(--text-mid); }
+  .contact-detail-label { font-weight: 500; color: var(--text-dark); font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 2px; }
+
+  .contact-detail a { color: var(--text-mid); text-decoration: none; transition: color 0.2s; }
+  .contact-detail a:hover { color: var(--sage); }
+
+  .social-link-wrap { display: flex; gap: 12px; margin-top: 32px; }
+
+  .social-link {
+    width: 44px; height: 44px;
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+    text-decoration: none;
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+
+  .social-link:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(143,175,143,0.3); }
+
+  /* ─── FORM ─── */
+  .contact-form-card {
+    padding: 44px 40px;
+    border-radius: var(--radius-xl);
+  }
+
+  .form-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: var(--text-dark);
+  }
+
+  .form-subtitle {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin-bottom: 32px;
+  }
+
+  .form-group { margin-bottom: 20px; }
+
+  .form-group label {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--text-mid);
+    margin-bottom: 8px;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: 14px 18px;
+    border-radius: 14px;
+    border: 1.5px solid rgba(143,175,143,0.25);
+    background: rgba(255,255,255,0.7);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.92rem;
+    color: var(--text-dark);
+    transition: border-color 0.25s, box-shadow 0.25s;
+    outline: none;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--sage);
+    box-shadow: 0 0 0 4px rgba(143,175,143,0.12);
+  }
+
+  .form-group textarea { resize: vertical; min-height: 100px; }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  .form-submit {
+    width: 100%;
+    padding: 16px;
+    border-radius: 14px;
+    background: var(--text-dark);
+    color: white;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 8px;
+    letter-spacing: 0.02em;
+  }
+
+  .form-submit:hover {
+    background: var(--sage);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(143,175,143,0.4);
+  }
+
+  .form-success {
+    display: none;
+    text-align: center;
+    padding: 32px;
+  }
+
+  .form-success.show { display: block; }
+  .form-success-icon { font-size: 3rem; margin-bottom: 16px; }
+  .form-success h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    color: var(--sage);
+    margin-bottom: 8px;
+  }
+  .form-success p { font-size: 0.88rem; color: var(--text-light); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--text-dark);
+    color: rgba(255,255,255,0.6);
+    padding: 48px 20px 32px;
+    position: relative; z-index: 1;
+  }
+
+  .footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: white;
+  }
+
+  .footer-logo span { color: var(--sage); }
+
+  .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+
+  .footer-links a {
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    font-size: 0.82rem;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--sage); }
+
+  .footer-copy { font-size: 0.78rem; color: rgba(255,255,255,0.3); text-align: center; margin-top: 24px; }
+
+  /* ─── ADMIN LINK ─── */
+  .admin-link {
+    position: fixed;
+    bottom: 24px; right: 24px;
+    background: rgba(44,44,44,0.8);
+    backdrop-filter: blur(10px);
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    font-size: 0.72rem;
+    padding: 8px 14px;
+    border-radius: 100px;
+    letter-spacing: 0.05em;
+    z-index: 500;
+    transition: all 0.25s;
+  }
+
+  .admin-link:hover { color: white; background: var(--sage); }
+
+  /* ─── ADMIN PANEL ─── */
+  #admin-panel {
+    display: none;
+    position: fixed; inset: 0;
+    z-index: 9999;
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(8px);
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+
+  #admin-panel.show { display: flex; }
+
+  .admin-modal {
+    width: 100%; max-width: 900px;
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: var(--radius-xl);
+    padding: 40px;
+    background: var(--warm-white);
+    position: relative;
+  }
+
+  .admin-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 32px;
+  }
+
+  .admin-header h2 {
+    font-size: 1.8rem;
+    margin-bottom: 0;
+  }
+
+  .admin-close {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: var(--sage-pale);
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s;
+    color: var(--text-dark);
+  }
+
+  .admin-close:hover { background: var(--sage-light); }
+
+  .admin-login { max-width: 340px; margin: 0 auto; text-align: center; }
+  .admin-login h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; margin-bottom: 24px; }
+
+  #admin-table-wrap { overflow-x: auto; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+
+  thead { background: var(--sage-pale); }
+
+  th {
+    text-align: left;
+    padding: 12px 16px;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--sage);
+    font-weight: 500;
+  }
+
+  td {
+    padding: 14px 16px;
+    border-bottom: 1px solid rgba(143,175,143,0.12);
+    color: var(--text-mid);
+    font-size: 0.85rem;
+  }
+
+  tr:hover td { background: var(--sage-pale); }
+
+  .admin-empty {
+    text-align: center;
+    padding: 48px;
+    color: var(--text-light);
+    font-size: 0.9rem;
+  }
+
+  .admin-count {
+    font-size: 0.82rem;
+    color: var(--text-light);
+    margin-bottom: 16px;
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 100px;
+    font-size: 0.72rem;
+    font-weight: 500;
+    background: var(--sage-pale);
+    color: var(--sage);
+  }
+
+  /* ─── SCROLL ANIMATIONS ─── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    .hero-container,
+    #about .section-wrap,
+    #contact .section-wrap {
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+
+    .hero-image-wrap { order: -1; }
+
+    .hero-img-card { max-width: 100%; aspect-ratio: 16/10; }
+
+    .hero-float-card,
+    .hero-float-card-2 { display: none; }
+
+    .services-grid { grid-template-columns: 1fr; }
+
+    .testimonials-grid { grid-template-columns: 1fr; }
+
+    .process-grid { grid-template-columns: repeat(2, 1fr); }
+    .process-step::after { display: none; }
+
+    nav { padding: 12px 20px; }
+    .nav-links { display: none; }
+    .nav-hamburger { display: flex; }
+
+    .mobile-menu {
+      display: none;
+      position: fixed; inset: 0;
+      z-index: 998;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 32px;
+      background: var(--cream);
+    }
+
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      color: var(--text-dark);
+      text-decoration: none;
+      font-weight: 400;
+    }
+
+    .form-row { grid-template-columns: 1fr; }
+
+    .contact-form-card { padding: 28px 24px; }
+  }
+
+  @media (max-width: 600px) {
+    .hero-stats { flex-direction: column; gap: 20px; }
+    .process-grid { grid-template-columns: 1fr; }
+    .footer-inner { flex-direction: column; text-align: center; }
+    .admin-modal { padding: 24px 16px; }
+  }
+
+  /* ─── UNSPLASH IMG PLACEHOLDERS via PICSUM ─── */
+  .img-nutrition { background: linear-gradient(135deg, #d4e8d4 0%, #c5d8c5 100%); display: flex; align-items: center; justify-content: center; color: var(--sage); font-size: 3rem; }
+</style>
+</head>
+<body>
+
+<!-- Ambient blobs -->
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="blob blob-3"></div>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#about" onclick="closeMobile()">About</a>
+  <a href="#services" onclick="closeMobile()">Services</a>
+  <a href="#process" onclick="closeMobile()">How it Works</a>
+  <a href="#testimonials" onclick="closeMobile()">Stories</a>
+  <a href="#contact" onclick="closeMobile()">Get in Touch</a>
+</div>
+
+<!-- Navigation -->
+<nav class="glass" id="navbar">
+  <a class="nav-logo" href="#hero">Nidhi <span>Singhal</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#testimonials">Stories</a></li>
+    <li><a href="#contact" class="nav-cta">Book a Session</a></li>
+  </ul>
+  <div class="nav-hamburger" id="hamburger" onclick="toggleMobile()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section id="hero">
+  <div class="hero-container">
+
+    <!-- Left: Copy -->
+    <div>
+      <div class="hero-eyebrow reveal">Certified Diabetes Educator · Delhi NCR</div>
+
+      <h1 class="reveal reveal-delay-1">
+        Reclaim your health,<br><em>one meal at a time.</em>
+      </h1>
+
+      <p class="hero-body reveal reveal-delay-2">
+        Living with diabetes or struggling with weight doesn't have to feel like a battle.
+        I help you build a deeply personal nutrition plan — backed by science,
+        shaped by compassion — so you can thrive, not just survive.
+      </p>
+
+      <div class="hero-actions reveal reveal-delay-3">
+        <a href="#contact" class="btn-primary">
+          ✦ Book Free Consultation
+        </a>
+        <a href="https://wa.me/919719425812?text=Hi%20Nidhi%2C%20I%27d%20like%20to%20book%20a%20consultation." class="btn-whatsapp" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          WhatsApp
+        </a>
+      </div>
+
+      <div class="hero-stats reveal reveal-delay-4">
+        <div class="stat-item">
+          <div class="stat-num">500<span>+</span></div>
+          <div class="stat-label">Patients Helped</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">8<span>+</span></div>
+          <div class="stat-label">Years Experience</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">94<span>%</span></div>
+          <div class="stat-label">Satisfaction Rate</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Image -->
+    <div class="hero-image-wrap reveal reveal-delay-2">
+      <div class="hero-img-card glass">
+        <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=700&q=80" alt="Fresh nutritious food" loading="lazy">
+        <div class="hero-img-overlay"></div>
+      </div>
+
+      <div class="hero-float-card glass">
+        <div class="float-card-label">Today's Plan</div>
+        <div class="float-card-text">Balanced • Personalised</div>
+      </div>
+
+      <div class="hero-float-card-2 glass">
+        <div class="float-badge">
+          <div class="float-badge-icon">🩺</div>
+          <div>
+            <div class="float-badge-text">Clinically Trained</div>
+            <div class="float-badge-sub">RD · CDE Certified</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════ ABOUT ═══════════════ -->
+<section id="about">
+  <div class="section-wrap">
+    <div class="about-img-wrap reveal">
+      <div class="about-img glass">
+        <img src="https://images.unsplash.com/photo-1565299507177-b0ac66763828?w=600&q=80" alt="Healthy food and nutrition" loading="lazy">
+      </div>
+      <div class="about-accent"></div>
+    </div>
+
+    <div class="about-content">
+      <div class="section-label reveal">About Nidhi</div>
+      <h2 class="reveal reveal-delay-1">Your partner in <em>evidence-based</em> wellness</h2>
+      <p class="about-text reveal reveal-delay-2">
+        Hello, I'm Nidhi Singhal — a Consultant Dietitian and Certified Diabetes Educator with over
+        8 years of experience helping people navigate the complexities of metabolic health, weight
+        management, and clinical nutrition.
+      </p>
+      <p class="about-text reveal reveal-delay-2">
+        I believe that food is deeply personal. My approach is rooted in listening first —
+        understanding your lifestyle, your preferences, your medical history — and then building
+        a roadmap that is realistic, sustainable, and joyful. No fad diets. No guilt. Just real,
+        compassionate science.
+      </p>
+      <ul class="credential-list reveal reveal-delay-3">
+        <li>M.Sc. in Clinical Nutrition & Dietetics</li>
+        <li>Certified Diabetes Educator (CDE) — NDEP</li>
+        <li>Member, Indian Dietetics Association (IDA)</li>
+        <li>Specialisation in Therapeutic Nutrition & Meal Planning</li>
+        <li>Serving patients across Delhi NCR, virtually and in-person</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ SERVICES ═══════════════ -->
+<section id="services">
+  <div class="section-wrap">
+    <div class="services-header">
+      <div class="section-label reveal">My Services</div>
+      <h2 class="reveal reveal-delay-1">Tailored care for <em>every journey</em></h2>
+      <p class="section-subtitle reveal reveal-delay-2">
+        Each programme is designed around your unique health goals —
+        not a template, but a living plan that evolves with you.
+      </p>
+    </div>
+
+    <div class="services-grid">
+      <!-- Card 1 -->
+      <div class="service-card glass reveal">
+        <div class="service-icon">🩸</div>
+        <h3>Diabetes Education & Management</h3>
+        <p>Comprehensive support for Type 1, Type 2, and gestational diabetes — from meal timing and carbohydrate counting to understanding your medications and labs.</p>
+        <ul class="service-features">
+          <li>Personalised carbohydrate meal plans</li>
+          <li>Blood glucose monitoring guidance</li>
+          <li>Glycaemic index coaching</li>
+          <li>Ongoing HbA1c tracking support</li>
+        </ul>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="service-card glass reveal reveal-delay-1">
+        <div class="service-icon">⚖️</div>
+        <h3>Weight & Metabolic Management</h3>
+        <p>Sustainable, science-based strategies to reach and maintain a healthy weight — with full respect for your body, culture, and food preferences.</p>
+        <ul class="service-features">
+          <li>Caloric & macro-nutrient planning</li>
+          <li>Gut health & digestive support</li>
+          <li>PCOS, thyroid, & hormonal nutrition</li>
+          <li>Mindful eating & habit coaching</li>
+        </ul>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="service-card glass reveal reveal-delay-2">
+        <div class="service-icon">🥦</div>
+        <h3>Clinical & Therapeutic Nutrition</h3>
+        <p>Medical nutrition therapy for complex conditions — kidney disease, liver disorders, cardiovascular health, oncology support, and post-surgical recovery.</p>
+        <ul class="service-features">
+          <li>Renal & cardiac diet planning</li>
+          <li>Liver disease nutritional support</li>
+          <li>Paediatric & elderly nutrition</li>
+          <li>Pre & post-operative care plans</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ PROCESS ═══════════════ -->
+<section id="process">
+  <div class="section-wrap">
+    <div class="section-label reveal">How it Works</div>
+    <h2 class="reveal reveal-delay-1">Four gentle steps to <em>lasting change</em></h2>
+
+    <div class="process-grid">
+      <div class="process-step glass reveal">
+        <div class="step-num">01</div>
+        <h4>Free Discovery Call</h4>
+        <p>A 15-minute no-obligation call to understand your health goals and challenges.</p>
+      </div>
+      <div class="process-step glass reveal reveal-delay-1">
+        <div class="step-num">02</div>
+        <h4>Deep Health Assessment</h4>
+        <p>We review your medical history, labs, lifestyle, and dietary preferences in detail.</p>
+      </div>
+      <div class="process-step glass reveal reveal-delay-2">
+        <div class="step-num">03</div>
+        <h4>Your Personal Plan</h4>
+        <p>A custom meal plan and education programme, crafted specifically for you.</p>
+      </div>
+      <div class="process-step glass reveal reveal-delay-3">
+        <div class="step-num">04</div>
+        <h4>Ongoing Support</h4>
+        <p>Weekly or bi-weekly follow-ups to track progress, adjust your plan, and celebrate wins.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ TESTIMONIALS ═══════════════ -->
+<section id="testimonials">
+  <div class="section-wrap">
+    <div class="section-label reveal">Patient Stories</div>
+    <h2 class="reveal reveal-delay-1">Lives transformed, <em>gently</em></h2>
+    <p class="section-subtitle reveal reveal-delay-2">Real words from real people who chose to prioritise their health.</p>
+
+    <div class="testimonials-grid">
+      <div class="testimonial-card glass reveal">
+        <div class="quote-mark">"</div>
+        <p class="testimonial-text">Nidhi didn't just give me a diet chart — she helped me understand my body. My HbA1c dropped from 9.2 to 6.8 in four months. I feel like myself again.</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">🧑</div>
+          <div>
+            <div class="author-name">Rajesh Mehta</div>
+            <div class="author-tag">Type 2 Diabetes · Gurgaon</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card glass reveal reveal-delay-1">
+        <div class="quote-mark">"</div>
+        <p class="testimonial-text">I had PCOS and tried every diet under the sun. Nidhi's approach was so different — no restriction, just real food and understanding. I've lost 14 kg in 7 months.</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">👩</div>
+          <div>
+            <div class="author-name">Priya Anand</div>
+            <div class="author-tag">Weight Management · Noida</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card glass reveal reveal-delay-2">
+        <div class="quote-mark">"</div>
+        <p class="testimonial-text">My mother has kidney disease and we were lost with what to feed her. Nidhi made it so simple, and my mother's creatinine levels have stabilised beautifully.</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">🧕</div>
+          <div>
+            <div class="author-name">Sunita Kapoor</div>
+            <div class="author-tag">Renal Nutrition · Delhi</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ CONTACT ═══════════════ -->
+<section id="contact">
+  <div class="section-wrap">
+
+    <!-- Left: Info -->
+    <div class="contact-info reveal">
+      <div class="section-label">Get in Touch</div>
+      <h2>Ready to begin your <em>health journey?</em></h2>
+      <p style="color:var(--text-mid); font-size:0.95rem; line-height:1.8; font-weight:300; margin:16px 0 40px;">
+        Fill out the form and I'll get back to you within 24 hours.
+        Or reach out directly — I'm always happy to have a quick chat.
+      </p>
+
+      <div class="contact-detail">
+        <div class="contact-detail-icon">📞</div>
+        <div class="contact-detail-text">
+          <div class="contact-detail-label">Phone / WhatsApp</div>
+          <a href="tel:+919719425812">+91 97194 25812</a>
+        </div>
+      </div>
+
+      <div class="contact-detail">
+        <div class="contact-detail-icon">✉️</div>
+        <div class="contact-detail-text">
+          <div class="contact-detail-label">Email</div>
+          <a href="mailto:agnicurrent@gmail.com">agnicurrent@gmail.com</a>
+        </div>
+      </div>
+
+      <div class="contact-detail">
+        <div class="contact-detail-icon">📍</div>
+        <div class="contact-detail-text">
+          <div class="contact-detail-label">Availability</div>
+          <span>In-person (Delhi NCR) & Online Consultations</span>
+        </div>
+      </div>
+
+      <div class="social-link-wrap">
+        <a href="https://www.instagram.com/agnicurrent.diet" target="_blank" rel="noopener" class="social-link glass" title="Instagram">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C13584" stroke-width="1.8">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+          </svg>
+        </a>
+        <a href="https://wa.me/919719425812" target="_blank" rel="noopener" class="social-link glass" title="WhatsApp">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Right: Form -->
+    <div class="reveal reveal-delay-2">
+      <div class="contact-form-card glass" id="form-card">
+        <div id="form-body">
+          <div class="form-title">Book Your Free Session</div>
+          <div class="form-subtitle">No commitment. Just a conversation.</div>
+          <form id="enquiry-form" onsubmit="submitForm(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label>First Name</label>
+                <input type="text" name="firstName" placeholder="Priya" required>
+              </div>
+              <div class="form-group">
+                <label>Last Name</label>
+                <input type="text" name="lastName" placeholder="Sharma">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Phone Number</label>
+              <input type="tel" name="phone" placeholder="+91 98765 43210" required>
+            </div>
+            <div class="form-group">
+              <label>Email Address</label>
+              <input type="email" name="email" placeholder="priya@email.com">
+            </div>
+            <div class="form-group">
+              <label>Primary Health Goal</label>
+              <select name="goal" required>
+                <option value="" disabled selected>Select your goal</option>
+                <option value="diabetes">Diabetes Management</option>
+                <option value="weight">Weight Management</option>
+                <option value="pcos">PCOS / Hormonal Nutrition</option>
+                <option value="renal">Kidney / Renal Diet</option>
+                <option value="cardiac">Cardiac Nutrition</option>
+                <option value="general">General Wellness</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Tell Me a Little More (optional)</label>
+              <textarea name="message" placeholder="Share anything that might help me understand your situation better..."></textarea>
+            </div>
+            <button type="submit" class="form-submit">Send My Enquiry →</button>
+          </form>
+        </div>
+        <div class="form-success" id="form-success">
+          <div class="form-success-icon">🌿</div>
+          <h3>Thank you for reaching out!</h3>
+          <p>I've received your enquiry and will be in touch within 24 hours. Looking forward to connecting with you.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">Nidhi <span>Singhal</span></div>
+    <div class="footer-links">
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#testimonials">Stories</a>
+      <a href="#contact">Contact</a>
+      <a href="https://www.instagram.com/agnicurrent.diet" target="_blank">Instagram</a>
+      <a href="#" onclick="openAdmin(); return false;">Admin</a>
+    </div>
+  </div>
+  <div class="footer-copy">
+    © 2025 Nidhi Singhal — Consultant Dietitian & Diabetes Educator · All rights reserved
+  </div>
+</footer>
+
+<!-- Admin floating link -->
+<a href="#" class="admin-link" onclick="openAdmin(); return false;">⚙ Admin</a>
+
+<!-- ═══════════════ ADMIN PANEL ═══════════════ -->
+<div id="admin-panel">
+  <div class="admin-modal glass">
+    <div class="admin-header">
+      <h2>Admin <em>Dashboard</em></h2>
+      <button class="admin-close" onclick="closeAdmin()">✕</button>
+    </div>
+
+    <!-- Login -->
+    <div class="admin-login" id="admin-login">
+      <h3>Protected Access</h3>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="admin-password" placeholder="Enter password" onkeydown="if(event.key==='Enter') checkLogin()">
+      </div>
+      <button class="form-submit" onclick="checkLogin()">Login →</button>
+      <p style="margin-top:12px; font-size:0.75rem; color:var(--text-light);">Demo password: <strong>nidhi2025</strong></p>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="admin-dashboard" style="display:none;">
+      <p class="admin-count" id="enquiry-count">Loading enquiries…</p>
+      <div id="admin-table-wrap">
+        <div class="admin-empty" id="admin-empty" style="display:none;">
+          No enquiries yet. Submissions will appear here.
+        </div>
+        <table id="admin-table" style="display:none;">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Phone</th>
+              <th>Email</th>
+              <th>Goal</th>
+              <th>Message</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody id="admin-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // ─── ENQUIRIES STORE ───
+  let enquiries = JSON.parse(localStorage.getItem('nidhi_enquiries') || '[]');
+
+  // ─── FORM SUBMISSION ───
+  function submitForm(e) {
+    e.preventDefault();
+    const f = e.target;
+    const entry = {
+      id: Date.now(),
+      firstName: f.firstName.value,
+      lastName: f.lastName.value,
+      phone: f.phone.value,
+      email: f.email.value,
+      goal: f.goal.value,
+      message: f.message.value,
+      date: new Date().toLocaleDateString('en-IN', { day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' })
+    };
+    enquiries.push(entry);
+    localStorage.setItem('nidhi_enquiries', JSON.stringify(enquiries));
+    document.getElementById('form-body').style.display = 'none';
+    document.getElementById('form-success').classList.add('show');
+  }
+
+  // ─── ADMIN LOGIN ───
+  function checkLogin() {
+    const pw = document.getElementById('admin-password').value;
+    if (pw === 'nidhi2025') {
+      document.getElementById('admin-login').style.display = 'none';
+      document.getElementById('admin-dashboard').style.display = 'block';
+      renderTable();
+    } else {
+      document.getElementById('admin-password').style.borderColor = 'var(--dusty-rose)';
+      document.getElementById('admin-password').placeholder = 'Incorrect password';
+      document.getElementById('admin-password').value = '';
+    }
+  }
+
+  function renderTable() {
+    enquiries = JSON.parse(localStorage.getItem('nidhi_enquiries') || '[]');
+    const count = document.getElementById('enquiry-count');
+    const table = document.getElementById('admin-table');
+    const empty = document.getElementById('admin-empty');
+    const tbody = document.getElementById('admin-tbody');
+
+    count.textContent = `Total enquiries: ${enquiries.length}`;
+
+    if (enquiries.length === 0) {
+      empty.style.display = 'block';
+      table.style.display = 'none';
+      return;
+    }
+
+    empty.style.display = 'none';
+    table.style.display = 'table';
+    tbody.innerHTML = '';
+
+    [...enquiries].reverse().forEach((e, i) => {
+      const goalLabels = {
+        diabetes: 'Diabetes', weight: 'Weight Mgmt', pcos: 'PCOS',
+        renal: 'Renal', cardiac: 'Cardiac', general: 'General Wellness', other: 'Other'
+      };
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${enquiries.length - i}</td>
+        <td><strong>${e.firstName} ${e.lastName || ''}</strong></td>
+        <td><a href="tel:${e.phone}" style="color:var(--sage)">${e.phone}</a></td>
+        <td>${e.email || '—'}</td>
+        <td><span class="badge">${goalLabels[e.goal] || e.goal}</span></td>
+        <td style="max-width:180px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">${e.message || '—'}</td>
+        <td style="font-size:0.78rem; color:var(--text-light)">${e.date}</td>
+      `;
+      tbody.appendChild(row);
+    });
+  }
+
+  function openAdmin() {
+    document.getElementById('admin-panel').classList.add('show');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeAdmin() {
+    document.getElementById('admin-panel').classList.remove('show');
+    document.body.style.overflow = '';
+    // Reset login
+    document.getElementById('admin-login').style.display = 'block';
+    document.getElementById('admin-dashboard').style.display = 'none';
+    document.getElementById('admin-password').value = '';
+  }
+
+  // Close admin on outside click
+  document.getElementById('admin-panel').addEventListener('click', function(e) {
+    if (e.target === this) closeAdmin();
+  });
+
+  // ─── MOBILE MENU ───
+  function toggleMobile() {
+    document.getElementById('mobile-menu').classList.toggle('open');
+    document.body.style.overflow = document.getElementById('mobile-menu').classList.contains('open') ? 'hidden' : '';
+  }
+
+  function closeMobile() {
+    document.getElementById('mobile-menu').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // ─── SCROLL REVEAL ───
+  const reveals = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+
+  reveals.forEach(el => revealObserver.observe(el));
+
+  // Trigger hero reveals immediately
+  window.addEventListener('load', () => {
+    document.querySelectorAll('#hero .reveal').forEach(el => el.classList.add('visible'));
+  });
+
+  // ─── NAVBAR SCROLL EFFECT ───
+  window.addEventListener('scroll', () => {
+    const nav = document.getElementById('navbar');
+    if (window.scrollY > 40) {
+      nav.style.top = '12px';
+    } else {
+      nav.style.top = '20px';
+    }
+  });
+</script>
+</body>
+</html>
